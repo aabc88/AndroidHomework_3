@@ -41,7 +41,7 @@ class CartFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = CartAdapter(cartItems) { productId ->
-            val product = viewModel.productList.value?.find { it.id == productId }
+            val product = viewModel.itemList.value?.find { it.id == productId }
             product?.let { viewModel.removeFromProductList(it) }
         }
         binding.recyclerViewCart.run {
@@ -51,7 +51,7 @@ class CartFragment : Fragment() {
     }
 
     private fun observeCartItems() {
-        viewModel.productList.observe(viewLifecycleOwner) { updatedList ->
+        viewModel.itemList.observe(viewLifecycleOwner) { updatedList ->
             val grouped = updatedList.groupBy { it.name }
             cartItems.clear()
             cartItems.addAll(
@@ -70,5 +70,4 @@ class CartFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
     }
-
 }

@@ -55,7 +55,7 @@ class ReactiveShoppingCart(val scope: CoroutineScope) {
             _cartActions.emit(CartAction.AddItem(item))
         }
     }
-
+    
     fun removeItem(itemId: Int) {
         scope.launch {
             _cartActions.emit(CartAction.RemoveItem(itemId))

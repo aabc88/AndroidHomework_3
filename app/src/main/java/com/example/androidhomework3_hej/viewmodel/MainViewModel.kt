@@ -5,22 +5,17 @@ import androidx.lifecycle.ViewModel
 import com.example.androidhomework3_hej.model.Product
 
 class MainViewModel : ViewModel() {
-    val productList = MutableLiveData<MutableList<Product>>(mutableListOf())
+    val itemList = MutableLiveData<MutableList<Product>>(mutableListOf())
 
     fun addToProductList(product: Product) {
-        val currentList = productList.value ?: mutableListOf()
+        val currentList = itemList.value ?: mutableListOf()
         currentList.add(product)
-        productList.value = currentList
+        itemList.value = currentList
     }
 
     fun removeFromProductList(product: Product) {
-        val currentList = productList.value ?: return
+        val currentList = itemList.value ?: return
         currentList.remove(product)
-        productList.value = currentList.toMutableList()
+        itemList.value = currentList.toMutableList()
     }
-
-    fun clearProductList() {
-        productList.value = mutableListOf()
-    }
-
 }

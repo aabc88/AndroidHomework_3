@@ -46,10 +46,12 @@ class MainActivity : AppCompatActivity() {
                 showFragment(ProductListFragment())
                 true
             }
+
             R.id.menu_cart -> {
                 showFragment(CartFragment())
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

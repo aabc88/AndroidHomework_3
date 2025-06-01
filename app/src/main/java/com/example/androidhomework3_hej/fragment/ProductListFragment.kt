@@ -62,7 +62,7 @@ class ProductListFragment : Fragment() {
 
     private fun observeCartStatus() {
         //add............. flow 구독...................
-        viewModel.productList.observe(viewLifecycleOwner) { productList ->
+        viewModel.itemList.observe(viewLifecycleOwner) { productList ->
             val grouped = productList.groupBy { it.name }
             val cartItems = grouped.map { (_, group) ->
                 val first = group.first()
@@ -76,5 +76,4 @@ class ProductListFragment : Fragment() {
             binding.textCartTotal.text = "총액: ${String.format("%,d원", totalPrice)}"
         }
     }
-
 }
