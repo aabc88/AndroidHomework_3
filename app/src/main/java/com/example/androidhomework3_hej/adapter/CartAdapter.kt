@@ -18,6 +18,7 @@ class CartAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val binding = ItemCartBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -29,9 +30,15 @@ class CartAdapter(
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         //add..................................
-        
-
+        holder.binding.run {
+            textItemName.text = items[position].name
+            textItemPrice.text = "${items[position].price}원"
+            textItemQuantity.text = "${items[position].quantity}개"
+            var total = items[position].price * items[position].quantity
+            textItemTotal.text = "${total}원"
+            buttonRemoveFromCart.setOnClickListener {
+                onRemoveFromCart(items[position].id)
+            }
+        }
     }
-
-
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidhomework3_hej.adapter.CartAdapter
 import com.example.androidhomework3_hej.databinding.FragmentCartBinding
 import com.example.androidhomework3_hej.model.CartItem
@@ -39,14 +40,35 @@ class CartFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-
-        //add.........초기 RecyclerView 구성......................
-        
+        adapter = CartAdapter(cartItems) { productId ->
+            val product = viewModel.productList.value?.find { it.id == productId }
+            product?.let { viewModel.removeFromProductList(it) }
+        }
+        binding.recyclerViewCart.run {
+            adapter = this@CartFragment.adapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun observeCartItems() {
-        //add........... flow 구독...............
-       
+        viewModel.productList.observe(viewLifecycleOwner) { updatedList ->
+            val grouped = updatedList.groupBy { it.name }
+            cartItems.clear()
+            cartItems.addAll(
+                grouped.map { (name, products) ->
+                    val first = products.first()
+                    CartItem(
+                        id = first.id,
+                        name = name,
+                        price = first.price,
+                        quantity = products.size
+                    )
+                }
+            )
+            val totalAmount = cartItems.sumOf { it.price * it.quantity }
+            binding.textCartTotalAmount.text = "총액: ${String.format("%,d원", totalAmount)}"
+            adapter.notifyDataSetChanged()
+        }
     }
 
 }

@@ -8,7 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.example.androidhomework3_hej.databinding.ActivityMainBinding
+import com.example.androidhomework3_hej.fragment.CartFragment
+import com.example.androidhomework3_hej.fragment.ProductListFragment
 import com.example.androidhomework3_hej.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
